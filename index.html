@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivero Naturaleza Viva - Plantas y Jardinería</title>
+    <style>
+        /* Variables y reset */
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --primary-dark: #1B5E20;
+            --secondary: #FF9800;
+            --accent: #81C784;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #F9F9F9;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+        
+        .header-icons i {
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .header-icons i:hover {
+            color: var(--primary);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Categories */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .category-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .category-icon {
+            background-color: var(--accent);
+            padding: 30px;
+            font-size: 3rem;
+        }
+        
+        .category-info {
+            padding: 20px;
+        }
+        
+        .category-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Featured Products */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .rating {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--white);
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+        
+        .about-image {
+            flex: 1;
+            height: 400px;
+            background-color: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            margin-bottom: 60px;
+        }
+        
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons i {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .social-icons i:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        /* Cart Styles */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .quantity-btn {
+            background-color: #f0f0f0;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 3px;
+        }
+        
+        .remove-item {
+            color: #ff5252;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .cart-total {
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .cart-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* User Modal Styles */
+        .user-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .user-info {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+        }
+        
+        .user-name {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .user-email {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                width: 100%;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 15px;
+                display: block;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Naturaleza Viva</span>
+            </div>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="plantas.html">Plantas</a></li>
+                    <li><a href="jardineria.html">Jardinería</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <div class="cart-icon-container">
+                    <i class="fas fa-shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                <i class="fas fa-user" id="user-icon"></i>
+            </div>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Cultiva tu Paraíso Natural</h1>
+            <p>Plantas de calidad que transforman espacios en oasis verdes. Encuentra todo para tu jardín en un solo lugar.</p>
+            <a href="#" class="btn">Ver Catálogo</a>
+            <a href="#" class="btn btn-secondary">Contactar</a>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="container">
+        <h2 class="section-title">Nuestras Categorías</h2>
+        <div class="categories">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Plantas de Interior</h3>
+                    <p>Encuentra la planta perfecta para cada rincón de tu hogar</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-tree"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Plantas de Exterior</h3>
+                    <p>Transforma tu jardín con nuestras variedades exteriores</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Herramientas</h3>
+                    <p>Todo lo que necesitas para el cuidado de tus plantas</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-mortar-pestle"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Macetas y Accesorios</h3>
+                    <p>Decora y cuida tus plantas con nuestros productos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="container">
+        <h2 class="section-title">Productos Destacados</h2>
+        <div class="products">
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Suculenta Echeveria</h3>
+                    <p>Hermosa suculenta de fácil cuidado, perfecta para interiores.</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">$15.99</div>
+                    <button class="add-to-cart" data-id="1" data-name="Suculenta Echeveria" data-price="15.99">Agregar al Carrito</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Monstera Deliciosa</h3>
+                    <p>Planta tropical con hojas únicas, ideal para decorar espacios.</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="product-price">$24.99</div>
+                    <button class="add-to-cart" data-id="2" data-name="Monstera Deliciosa" data-price="24.99">Agregar al Carrito</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fab fa-pagelines"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Lavanda</h3>
+                    <p>Aromática y medicinal, perfecta para jardines y balcones.</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">$12.99</div>
+                    <button class="add-to-cart" data-id="3" data-name="Lavanda" data-price="12.99">Agregar al Carrito</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-feather-alt"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Helecho Boston</h3>
+                    <p>Planta colgante con frondas elegantes, ideal para interiores.</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">$18.99</div>
+                    <button class="add-to-cart" data-id="4" data-name="Helecho Boston" data-price="18.99">Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container about-content">
+            <div class="about-text">
+                <h2>Sobre Naturaleza Viva</h2>
+                <p>Somos un vivero familiar con más de 20 años de experiencia en el cultivo y cuidado de plantas. Nuestra pasión por la naturaleza nos impulsa a ofrecer productos de la más alta calidad y asesoramiento especializado.</p>
+                <p>En Naturaleza Viva creemos que cada planta tiene una historia y nuestro objetivo es ayudarte a crear la tuya. Desde pequeñas suculentas hasta árboles frutales, tenemos todo lo que necesitas para tu jardín.</p>
+                <p>Visítanos y descubre por qué somos el vivero de confianza de miles de amantes de las plantas.</p>
+                <a href="#" class="btn" style="margin-top: 20px;">Conoce Nuestra Historia</a>
+            </div>
+            <div class="about-image">
+                <i class="fas fa-seedling"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="container testimonials">
+        <h2 class="section-title">Lo que Dicen Nuestros Clientes</h2>
+        <div class="testimonial-cards">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "Compré varias plantas para mi apartamento y todas llegaron en perfecto estado. El servicio al cliente fue excelente y las plantas han crecido hermosas."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>María González</h4>
+                        <p>Cliente desde 2020</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "El asesoramiento que recibí para mi jardín fue increíble. Ahora tengo el jardín de mis sueños gracias a las recomendaciones de Naturaleza Viva."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>Carlos Rodríguez</h4>
+                        <p>Cliente desde 2019</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "La calidad de las plantas es excepcional. Siempre que necesito algo para mi jardín, sé que puedo contar con ellos. ¡Altamente recomendados!"
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>Ana Martínez</h4>
+                        <p>Cliente desde 2021</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Naturaleza Viva</h3>
+                    <p>Tu vivero de confianza para todas tus necesidades de jardinería y plantas.</p>
+                    <div class="social-icons">
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-pinterest"></i>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Plantas</a></li>
+                        <li><a href="#">Jardinería</a></li>
+                        <li><a href="#">Ofertas</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Jardín 123, Ciudad</li>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> info@naturalezaviva.com</li>
+                        <li><i class="fas fa-clock"></i> Lun-Sab: 9:00-18:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Suscríbete para recibir ofertas y consejos de jardinería.</p>
+                    <form>
+                        <input type="email" placeholder="Tu correo electrónico" style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: none;">
+                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Naturaleza Viva. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tu Carrito de Compras</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items">
+                    <!-- Los elementos del carrito se insertarán aquí -->
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-price">$0.00</span>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-outline" id="continue-shopping">Seguir Comprando</button>
+                    <button class="btn" id="checkout">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal" id="user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="user-modal-title">Iniciar Sesión</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="login-form" class="user-form">
+                    <div class="form-group">
+                        <label for="login-email">Correo Electrónico</label>
+                        <input type="email" id="login-email" placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" placeholder="Tu contraseña">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn" id="login-btn">Iniciar Sesión</button>
+                        <button class="btn btn-outline" id="show-register">Crear Cuenta</button>
+                    </div>
+                </div>
+                
+                <div id="register-form" class="user-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="register-name">Nombre Completo</label>
+                        <input type="text" id="register-name" placeholder="Tu nombre completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Correo Electrónico</label>
+                        <input type="email" id="register-email" placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Contraseña</label>
+                        <input type="password" id="register-password" placeholder="Crea una contraseña">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn" id="register-btn">Registrarse</button>
+                        <button class="btn btn-outline" id="show-login">Volver a Iniciar Sesión</button>
+                    </div>
+                </div>
+                
+                <div id="user-info" class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name" id="display-name">Nombre de Usuario</div>
+                    <div class="user-email" id="display-email">usuario@ejemplo.com</div>
+                    <div class="cart-actions">
+                        <button class="btn btn-outline" id="edit-profile">Editar Perfil</button>
+                        <button class="btn" id="logout-btn">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Cart functionality
+        let cart = [];
+        const cartIcon = document.getElementById('cart-icon');
+        const cartCount = document.getElementById('cart-count');
+        const cartModal = document.getElementById('cart-modal');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotalPrice = document.getElementById('cart-total-price');
+        const continueShoppingBtn = document.getElementById('continue-shopping');
+        const checkoutBtn = document.getElementById('checkout');
+        
+        // User functionality
+        const userIcon = document.getElementById('user-icon');
+        const userModal = document.getElementById('user-modal');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const userInfo = document.getElementById('user-info');
+        const showRegisterBtn = document.getElementById('show-register');
+        const showLoginBtn = document.getElementById('show-login');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const editProfileBtn = document.getElementById('edit-profile');
+        const userModalTitle = document.getElementById('user-modal-title');
+        const displayName = document.getElementById('display-name');
+        const displayEmail = document.getElementById('display-email');
+        
+        // Close modal buttons
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        
+        // Add to cart functionality
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                const productName = this.getAttribute('data-name');
+                const productPrice = parseFloat(this.getAttribute('data-price'));
+                
+                addToCart(productId, productName, productPrice);
+                updateCartUI();
+                
+                // Mostrar mensaje de confirmación
+                alert(`¡${productName} agregado al carrito!`);
+            });
+        });
+        
+        // Función para agregar producto al carrito
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+        }
+        
+        // Función para actualizar la interfaz del carrito
+        function updateCartUI() {
+            // Actualizar contador del carrito
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Actualizar elementos del carrito en el modal
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Tu carrito está vacío</p>';
+                cartTotalPrice.textContent = '$0.00';
+                return;
+            }
+            
+            let totalPrice = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalPrice += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-image">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                            <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                            <button class="remove-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItemElement);
+            });
+            
+            // Actualizar precio total
+            cartTotalPrice.textContent = `$${totalPrice.toFixed(2)}`;
+            
+            // Agregar event listeners a los botones de cantidad y eliminar
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    updateQuantity(id, -1);
+                });
+            });
+            
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    updateQuantity(id, 1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const id = this.getAttribute('data-id');
+                    const newQuantity = parseInt(this.value);
+                    
+                    if (newQuantity < 1) {
+                        this.value = 1;
+                        updateQuantity(id, 0, 1);
+                    } else {
+                        updateQuantity(id, 0, newQuantity);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    removeFromCart(id);
+                });
+            });
+        }
+        
+        // Función para actualizar cantidad de un producto
+        function updateQuantity(id, change, setQuantity = null) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                if (setQuantity !== null) {
+                    item.quantity = setQuantity;
+                } else {
+                    item.quantity += change;
+                    
+                    if (item.quantity < 1) {
+                        item.quantity = 1;
+                    }
+                }
+                
+                updateCartUI();
+            }
+        }
+        
+        // Función para eliminar producto del carrito
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+        
+        // Abrir modal del carrito
+        cartIcon.addEventListener('click', function() {
+            cartModal.style.display = 'flex';
+        });
+        
+        // Cerrar modal del carrito y continuar comprando
+        continueShoppingBtn.addEventListener('click', function() {
+            cartModal.style.display = 'none';
+        });
+        
+        // Finalizar compra
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            
+            alert('¡Gracias por tu compra! Serás redirigido al proceso de pago.');
+            cart = [];
+            updateCartUI();
+            cartModal.style.display = 'none';
+        });
+        
+        // User functionality
+        let currentUser = null;
+        
+        // Abrir modal de usuario
+        userIcon.addEventListener('click', function() {
+            if (currentUser) {
+                showUserInfo();
+            } else {
+                showLoginForm();
+            }
+            userModal.style.display = 'flex';
+        });
+        
+        // Mostrar formulario de registro
+        showRegisterBtn.addEventListener('click', function() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'flex';
+            userModalTitle.textContent = 'Crear Cuenta';
+        });
+        
+        // Mostrar formulario de inicio de sesión
+        showLoginBtn.addEventListener('click', function() {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+            userModalTitle.textContent = 'Iniciar Sesión';
+        });
+        
+        // Iniciar sesión
+        loginBtn.addEventListener('click', function() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                alert('Por favor, completa todos los campos');
+                return;
+            }
+            
+            // Simulación de inicio de sesión
+            currentUser = {
+                name: 'Usuario Ejemplo',
+                email: email
+            };
+            
+            showUserInfo();
+            userModal.style.display = 'flex';
+            
+            // Limpiar formularios
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+        });
+        
+        // Registrarse
+        registerBtn.addEventListener('click', function() {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            
+            if (!name || !email || !password) {
+                alert('Por favor, completa todos los campos');
+                return;
+            }
+            
+            // Simulación de registro
+            currentUser = {
+                name: name,
+                email: email
+            };
+            
+            showUserInfo();
+            userModal.style.display = 'flex';
+            
+            // Limpiar formularios
+            document.getElementById('register-name').value = '';
+            document.getElementById('register-email').value = '';
+            document.getElementById('register-password').value = '';
+            
+            alert('¡Cuenta creada exitosamente!');
+        });
+        
+        // Cerrar sesión
+        logoutBtn.addEventListener('click', function() {
+            currentUser = null;
+            showLoginForm();
+            userModal.style.display = 'flex';
+        });
+        
+        // Editar perfil
+        editProfileBtn.addEventListener('click', function() {
+            // En una implementación real, esto abriría un formulario de edición
+            alert('Funcionalidad de edición de perfil en desarrollo');
+        });
+        
+        // Mostrar información del usuario
+        function showUserInfo() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            userInfo.style.display = 'block';
+            userModalTitle.textContent = 'Mi Cuenta';
+            
+            displayName.textContent = currentUser.name;
+            displayEmail.textContent = currentUser.email;
+        }
+        
+        // Mostrar formulario de inicio de sesión
+        function showLoginForm() {
+            userInfo.style.display = 'none';
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+            userModalTitle.textContent = 'Iniciar Sesión';
+        }
+        
+        // Cerrar modales
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                cartModal.style.display = 'none';
+                userModal.style.display = 'none';
+            });
+        });
+        
+        // Cerrar modales al hacer clic fuera
+        window.addEventListener('click', function(event) {
+            if (event.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+            if (event.target === userModal) {
+                userModal.style.display = 'none';
+            }
+        });
+        
+        // Inicializar carrito
+        updateCartUI();
+    </script>
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jardinería - Vivero Naturaleza Viva</title>
+    <style>
+        /* Variables y reset */
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --primary-dark: #1B5E20;
+            --secondary: #FF9800;
+            --accent: #81C784;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #F9F9F9;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .header-icons i {
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .header-icons i:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 10px;
+        }
+        
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+            content: ">";
+            margin-left: 10px;
+            color: var(--accent);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            background-color: var(--accent);
+            padding: 30px;
+            font-size: 3rem;
+        }
+        
+        .service-info {
+            padding: 30px 20px;
+        }
+        
+        .service-info h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .service-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+        
+        /* Tools Section */
+        .tools {
+            background-color: var(--white);
+            padding: 60px 0;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .tool-card {
+            background-color: var(--background);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tool-image {
+            height: 200px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+        
+        .tool-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tool-info {
+            padding: 20px;
+        }
+        
+        .tool-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .tool-category {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .tool-description {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .tool-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .tool-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .add-to-cart {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .wishlist-btn {
+            padding: 10px 15px;
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .wishlist-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Accessories Section */
+        .accessories {
+            padding: 60px 0;
+        }
+        
+        .accessories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .accessory-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .accessory-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .accessory-image {
+            height: 180px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+        
+        .accessory-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .accessory-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .accessory-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        /* Tips Section */
+        .tips {
+            background-color: var(--white);
+            padding: 60px 0;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .tip-card {
+            background-color: var(--background);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .tip-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tip-card h3 i {
+            color: var(--secondary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons i {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .social-icons i:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 15px;
+                display: block;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Naturaleza Viva</span>
+            </div>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="plantas.html">Plantas</a></li>
+                    <li><a href="jardineria.html" class="active">Jardinería</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-user"></i>
+            </div>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Jardinería y Accesorios</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Inicio</a></li>
+                <li>Jardinería</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios de Jardinería</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <div class="service-info">
+                        <h3>Diseño de Jardines</h3>
+                        <p>Creación de planos y diseño personalizado para tu jardín, considerando tus preferencias y el espacio disponible.</p>
+                        <div class="service-price">Desde $150</div>
+                        <a href="#" class="btn">Solicitar Presupuesto</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="service-info">
+                        <h3>Mantenimiento</h3>
+                        <p>Servicio regular de poda, riego, fertilización y control de plagas para mantener tu jardín en perfecto estado.</p>
+                        <div class="service-price">Desde $50/mes</div>
+                        <a href="#" class="btn">Contratar Servicio</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="service-info">
+                        <h3>Asesoría Personalizada</h3>
+                        <p>Consulta con nuestros expertos para resolver dudas específicas sobre el cuidado de tus plantas y jardín.</p>
+                        <div class="service-price">$30/hora</div>
+                        <a href="#" class="btn">Agendar Cita</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools">
+        <div class="container">
+            <h2 class="section-title">Herramientas de Jardinería</h2>
+            <div class="tools-grid">
+                <!-- Tool 1 -->
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <i class="fas fa-tree"></i>
+                        <span class="tool-badge">Nuevo</span>
+                    </div>
+                    <div class="tool-info">
+                        <h3>Tijeras de Podar Profesionales</h3>
+                        <div class="tool-category">Herramientas de Corte</div>
+                        <p class="tool-description">Tijeras de alta precisión para poda de ramas hasta 2.5cm de diámetro.</p>
+                        <div class="tool-price">$34.99</div>
+                        <div class="tool-actions">
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tool 2 -->
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <i class="fas fa-shovel"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3>Palas de Jardinería</h3>
+                        <div class="tool-category">Herramientas de Excavación</div>
+                        <p class="tool-description">Set de 3 palas de diferentes tamaños para todo tipo de trabajos en tierra.</p>
+                        <div class="tool-price">$42.99</div>
+                        <div class="tool-actions">
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tool 3 -->
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <i class="fas fa-tint"></i>
+                        <span class="tool-badge">Oferta</span>
+                    </div>
+                    <div class="tool-info">
+                        <h3>Manguera Flexible 15m</h3>
+                        <div class="tool-category">Riego</div>
+                        <p class="tool-description">Manguera expandible que se extiende hasta 15 metros con boquilla ajustable.</p>
+                        <div class="tool-price">$28.99 <span style="text-decoration: line-through; color: var(--text-light); font-size: 1rem;">$35.99</span></div>
+                        <div class="tool-actions">
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tool 4 -->
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3>Pulverizador de Presión</h3>
+                        <div class="tool-category">Aplicación</div>
+                        <p class="tool-description">Pulverizador de 2 litros para aplicación de fertilizantes y pesticidas.</p>
+                        <div class="tool-price">$18.99</div>
+                        <div class="tool-actions">
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section class="accessories">
+        <div class="container">
+            <h2 class="section-title">Macetas y Accesorios</h2>
+            <div class="accessories-grid">
+                <!-- Accessory 1 -->
+                <div class="accessory-card">
+                    <div class="accessory-image">
+                        <i class="fas fa-egg"></i>
+                    </div>
+                    <div class="accessory-info">
+                        <h3>Maceta de Cerámica</h3>
+                        <p>Maceta artesanal de cerámica esmaltada, disponible en varios colores.</p>
+                        <div class="accessory-price">$22.99</div>
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Accessory 2 -->
+                <div class="accessory-card">
+                    <div class="accessory-image">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div class="accessory-info">
+                        <h3>Macetero Colgante</h3>
+                        <p>Macetero de cuerda natural para plantas colgantes, incluye soporte.</p>
+                        <div class="accessory-price">$15.99</div>
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Accessory 3 -->
+                <div class="accessory-card">
+                    <div class="accessory-image">
+                        <i class="fas fa-border-all"></i>
+                    </div>
+                    <div class="accessory-info">
+                        <h3>Sustrato Premium</h3>
+                        <p>Mezcla especial para plantas de interior con nutrientes de liberación lenta.</p>
+                        <div class="accessory-price">$12.99</div>
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Accessory 4 -->
+                <div class="accessory-card">
+                    <div class="accessory-image">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <div class="accessory-info">
+                        <h3>Fertilizante Orgánico</h3>
+                        <p>Fertilizante 100% orgánico para todo tipo de plantas, pack de 1kg.</p>
+                        <div class="accessory-price">$9.99</div>
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips">
+        <div class="container">
+            <h2 class="section-title">Consejos de Jardinería</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3><i class="fas fa-sun"></i> Mejor Época para Plantar</h3>
+                    <p>La primavera es ideal para la mayoría de plantas, pero algunas especies prefieren el otoño. Consulta siempre las necesidades específicas de cada planta.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3><i class="fas fa-tint"></i> Riego Adecuado</h3>
+                    <p>Es mejor regar profundamente y con menos frecuencia que superficialmente cada día. Esto fomenta raíces más fuertes y profundas.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3><i class="fas fa-bug"></i> Control Natural de Plagas</h3>
+                    <p>Usa insecticidas naturales como aceite de neem o jabón potásico. También puedes plantar especies que repelan plagas como la albahaca o la caléndula.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3><i class="fas fa-cut"></i> Poda Correcta</h3>
+                    <p>Poda siempre por encima de un nudo o yema orientada hacia afuera. Usa herramientas limpias y afiladas para evitar dañar las plantas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>¿Necesitas Ayuda con tu Jardín?</h2>
+            <p>Nuestro equipo de expertos en jardinería está listo para ayudarte a crear y mantener el jardín de tus sueños. Contamos con servicios personalizados para cada necesidad.</p>
+            <a href="#" class="btn">Contactar a un Experto</a>
+            <a href="#" class="btn btn-secondary">Ver Tutoriales</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Naturaleza Viva</h3>
+                    <p>Tu vivero de confianza para todas tus necesidades de jardinería y plantas.</p>
+                    <div class="social-icons">
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-pinterest"></i>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="plantas.html">Plantas</a></li>
+                        <li><a href="jardineria.html">Jardinería</a></li>
+                        <li><a href="#">Ofertas</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Jardín 123, Ciudad</li>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> info@naturalezaviva.com</li>
+                        <li><i class="fas fa-clock"></i> Lun-Sab: 9:00-18:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Suscríbete para recibir ofertas y consejos de jardinería.</p>
+                    <form>
+                        <input type="email" placeholder="Tu correo electrónico" style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: none;">
+                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Naturaleza Viva. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Add to cart functionality
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.parentElement.querySelector('h3').textContent;
+                alert(`${productName} agregado al carrito!`);
+            });
+        });
+        
+        // Wishlist functionality
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.backgroundColor = 'var(--primary)';
+                    this.style.color = 'var(--white)';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = 'var(--primary)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

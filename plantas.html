@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Plantas - Vivero Naturaleza Viva</title>
+    <style>
+        /* Variables y reset */
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --primary-dark: #1B5E20;
+            --secondary: #FF9800;
+            --accent: #81C784;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #F9F9F9;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .header-icons i {
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .header-icons i:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 10px;
+        }
+        
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+            content: ">";
+            margin-left: 10px;
+            color: var(--accent);
+        }
+        
+        /* Filters Section */
+        .filters {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+        }
+        
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .filter-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        /* Plant Grid */
+        .plants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .plant-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .plant-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .plant-image {
+            height: 200px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+        
+        .plant-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .plant-info {
+            padding: 20px;
+        }
+        
+        .plant-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .plant-category {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .plant-description {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .plant-care {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .care-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .plant-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .plant-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .add-to-cart {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .wishlist-btn {
+            padding: 10px 15px;
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .wishlist-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 10px;
+        }
+        
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: var(--white);
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        .pagination a.active, .pagination a:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons i {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .social-icons i:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+            }
+            
+            .filter-actions {
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Naturaleza Viva</span>
+            </div>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="plantas.html" class="active">Plantas</a></li>
+                    <li><a href="#">Jardinería</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-user"></i>
+            </div>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Nuestro Catálogo de Plantas</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Inicio</a></li>
+                <li>Plantas</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="container">
+        <div class="filters">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="category">Categoría</label>
+                    <select id="category">
+                        <option value="">Todas las categorías</option>
+                        <option value="interior">Plantas de Interior</option>
+                        <option value="exterior">Plantas de Exterior</option>
+                        <option value="suculentas">Suculentas y Cactus</option>
+                        <option value="aromaticas">Plantas Aromáticas</option>
+                        <option value="florales">Plantas Florales</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="light">Necesidades de Luz</label>
+                    <select id="light">
+                        <option value="">Cualquier luz</option>
+                        <option value="alta">Luz directa</option>
+                        <option value="media">Luz indirecta</option>
+                        <option value="baja">Sombra parcial</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="care">Dificultad de Cuidado</label>
+                    <select id="care">
+                        <option value="">Cualquier nivel</option>
+                        <option value="facil">Fácil</option>
+                        <option value="medio">Moderado</option>
+                        <option value="dificil">Difícil</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="price-range">Rango de Precio</label>
+                    <select id="price-range">
+                        <option value="">Todos los precios</option>
+                        <option value="0-20">Hasta $20</option>
+                        <option value="20-50">$20 - $50</option>
+                        <option value="50-100">$50 - $100</option>
+                        <option value="100+">Más de $100</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="search">Buscar</label>
+                    <input type="text" id="search" placeholder="Nombre de planta...">
+                </div>
+            </div>
+            
+            <div class="filter-actions">
+                <button class="btn" style="background-color: var(--primary-light);">Aplicar Filtros</button>
+                <button class="btn btn-secondary">Limpiar Filtros</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plants Grid -->
+    <section class="container">
+        <div class="plants-grid">
+            <!-- Plant 1 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fas fa-spa"></i>
+                    <span class="plant-badge">Nuevo</span>
+                </div>
+                <div class="plant-info">
+                    <h3>Suculenta Echeveria</h3>
+                    <div class="plant-category">Suculentas</div>
+                    <p class="plant-description">Hermosa suculenta de fácil cuidado, perfecta para interiores y exteriores con luz moderada.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Luz media</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Poca agua</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$15.99</div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plant 2 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fas fa-leaf"></i>
+                    <span class="plant-badge">Popular</span>
+                </div>
+                <div class="plant-info">
+                    <h3>Monstera Deliciosa</h3>
+                    <div class="plant-category">Plantas de Interior</div>
+                    <p class="plant-description">Planta tropical con hojas únicas y perforadas, ideal para decorar espacios interiores.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Luz indirecta</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Riego moderado</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$24.99</div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plant 3 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fab fa-pagelines"></i>
+                </div>
+                <div class="plant-info">
+                    <h3>Lavanda</h3>
+                    <div class="plant-category">Plantas Aromáticas</div>
+                    <p class="plant-description">Aromática y medicinal, perfecta para jardines y balcones. Atrae polinizadores.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Luz directa</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Poca agua</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$12.99</div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plant 4 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fas fa-feather-alt"></i>
+                </div>
+                <div class="plant-info">
+                    <h3>Helecho Boston</h3>
+                    <div class="plant-category">Plantas Colgantes</div>
+                    <p class="plant-description">Planta colgante con frondas elegantes, ideal para interiores con humedad.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Sombra parcial</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Alta humedad</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$18.99</div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plant 5 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fas fa-tree"></i>
+                    <span class="plant-badge">Oferta</span>
+                </div>
+                <div class="plant-info">
+                    <h3>Ficus Lyrata</h3>
+                    <div class="plant-category">Plantas de Interior</div>
+                    <p class="plant-description">También conocida como árbol de violín, con grandes hojas brillantes y elegantes.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Luz indirecta</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Riego moderado</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$32.99 <span style="text-decoration: line-through; color: var(--text-light); font-size: 1rem;">$39.99</span></div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plant 6 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="plant-info">
+                    <h3>Pothos Dorado</h3>
+                    <div class="plant-category">Plantas Colgantes</div>
+                    <p class="plant-description">Una de las plantas de interior más resistentes, perfecta para principiantes.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Cualquier luz</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Poco riego</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$14.99</div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plant 7 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fas fa-cactus"></i>
+                </div>
+                <div class="plant-info">
+                    <h3>Cactus San Pedro</h3>
+                    <div class="plant-category">Cactus</div>
+                    <p class="plant-description">Cactus columnar de crecimiento rápido, ideal para jardines de suculentas.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Luz directa</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Muy poco agua</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$22.99</div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plant 8 -->
+            <div class="plant-card">
+                <div class="plant-image">
+                    <i class="fas fa-pagelines"></i>
+                    <span class="plant-badge">Nuevo</span>
+                </div>
+                <div class="plant-info">
+                    <h3>Calathea Medallón</h3>
+                    <div class="plant-category">Plantas de Interior</div>
+                    <p class="plant-description">Planta con hermosos patrones en sus hojas que se mueven según la luz.</p>
+                    <div class="plant-care">
+                        <div class="care-item">
+                            <i class="fas fa-sun"></i>
+                            <span>Sombra parcial</span>
+                        </div>
+                        <div class="care-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Alta humedad</span>
+                        </div>
+                    </div>
+                    <div class="plant-price">$26.99</div>
+                    <div class="plant-actions">
+                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#"><i class="fas fa-chevron-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Naturaleza Viva</h3>
+                    <p>Tu vivero de confianza para todas tus necesidades de jardinería y plantas.</p>
+                    <div class="social-icons">
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-pinterest"></i>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="plantas.html">Plantas</a></li>
+                        <li><a href="#">Jardinería</a></li>
+                        <li><a href="#">Ofertas</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Jardín 123, Ciudad</li>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> info@naturalezaviva.com</li>
+                        <li><i class="fas fa-clock"></i> Lun-Sab: 9:00-18:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Suscríbete para recibir ofertas y consejos de jardinería.</p>
+                    <form>
+                        <input type="email" placeholder="Tu correo electrónico" style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: none;">
+                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Naturaleza Viva. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Add to cart functionality
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.parentElement.parentElement.querySelector('h3').textContent;
+                alert(`${productName} agregado al carrito!`);
+            });
+        });
+        
+        // Wishlist functionality
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.backgroundColor = 'var(--primary)';
+                    this.style.color = 'var(--white)';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = 'var(--primary)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
