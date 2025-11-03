@@ -710,8 +710,8 @@
         <div class="container hero-content">
             <h1>Cultiva tu Paraíso Natural</h1>
             <p>Plantas de calidad que transforman espacios en oasis verdes. Encuentra todo para tu jardín en un solo lugar.</p>
-            <a href="#" class="btn">Ver Catálogo</a>
-            <a href="#" class="btn btn-secondary">Contactar</a>
+            <a href="plantas.html" class="btn">Ver Catálogo</a>
+            <a href="contacto.html" class="btn btn-secondary">Contactar</a>
         </div>
     </section>
 
@@ -851,7 +851,7 @@
                 <p>Somos un vivero familiar con más de 20 años de experiencia en el cultivo y cuidado de plantas. Nuestra pasión por la naturaleza nos impulsa a ofrecer productos de la más alta calidad y asesoramiento especializado.</p>
                 <p>En Naturaleza Viva creemos que cada planta tiene una historia y nuestro objetivo es ayudarte a crear la tuya. Desde pequeñas suculentas hasta árboles frutales, tenemos todo lo que necesitas para tu jardín.</p>
                 <p>Visítanos y descubre por qué somos el vivero de confianza de miles de amantes de las plantas.</p>
-                <a href="#" class="btn" style="margin-top: 20px;">Conoce Nuestra Historia</a>
+                <a href="sobre-nosotros.html" class="btn" style="margin-top: 20px;">Conoce Nuestra Historia</a>
             </div>
             <div class="about-image">
                 <i class="fas fa-seedling"></i>
@@ -929,10 +929,10 @@
                     <h3>Enlaces Rápidos</h3>
                     <ul>
                         <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Plantas</a></li>
-                        <li><a href="#">Jardinería</a></li>
-                        <li><a href="#">Ofertas</a></li>
-                        <li><a href="#">Contacto</a></li>
+                        <li><a href="plantas.html">Plantas</a></li>
+                        <li><a href="jardineria.html">Jardinería</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
                     </ul>
                 </div>
                 
@@ -979,7 +979,7 @@
                 </div>
                 <div class="cart-actions">
                     <button class="btn btn-outline" id="continue-shopping">Seguir Comprando</button>
-                    <button class="btn" id="checkout">Finalizar Compra</button>
+                    <a href="carrito.html" class="btn" id="go-to-cart">Ver Carrito Completo</a>
                 </div>
             </div>
         </div>
@@ -1049,14 +1049,14 @@
         });
         
         // Cart functionality
-        let cart = [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartIcon = document.getElementById('cart-icon');
         const cartCount = document.getElementById('cart-count');
         const cartModal = document.getElementById('cart-modal');
         const cartItems = document.getElementById('cart-items');
         const cartTotalPrice = document.getElementById('cart-total-price');
         const continueShoppingBtn = document.getElementById('continue-shopping');
-        const checkoutBtn = document.getElementById('checkout');
+        const goToCartBtn = document.getElementById('go-to-cart');
         
         // User functionality
         const userIcon = document.getElementById('user-icon');
@@ -1087,6 +1087,7 @@
                 
                 addToCart(productId, productName, productPrice);
                 updateCartUI();
+                saveCartToLocalStorage();
                 
                 // Mostrar mensaje de confirmación
                 alert(`¡${productName} agregado al carrito!`);
@@ -1121,6 +1122,7 @@
             if (cart.length === 0) {
                 cartItems.innerHTML = '<p>Tu carrito está vacío</p>';
                 cartTotalPrice.textContent = '$0.00';
+                goToCartBtn.style.display = 'none';
                 return;
             }
             
@@ -1155,6 +1157,7 @@
             
             // Actualizar precio total
             cartTotalPrice.textContent = `$${totalPrice.toFixed(2)}`;
+            goToCartBtn.style.display = 'block';
             
             // Agregar event listeners a los botones de cantidad y eliminar
             document.querySelectorAll('.decrease-quantity').forEach(button => {
@@ -1209,6 +1212,7 @@
                 }
                 
                 updateCartUI();
+                saveCartToLocalStorage();
             }
         }
         
@@ -1216,6 +1220,12 @@
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
             updateCartUI();
+            saveCartToLocalStorage();
+        }
+        
+        // Función para guardar carrito en localStorage
+        function saveCartToLocalStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
         }
         
         // Abrir modal del carrito
@@ -1228,17 +1238,9 @@
             cartModal.style.display = 'none';
         });
         
-        // Finalizar compra
-        checkoutBtn.addEventListener('click', function() {
-            if (cart.length === 0) {
-                alert('Tu carrito está vacío');
-                return;
-            }
-            
-            alert('¡Gracias por tu compra! Serás redirigido al proceso de pago.');
-            cart = [];
-            updateCartUI();
-            cartModal.style.display = 'none';
+        // Ir a la página del carrito completo
+        goToCartBtn.addEventListener('click', function() {
+            window.location.href = 'carrito.html';
         });
         
         // User functionality

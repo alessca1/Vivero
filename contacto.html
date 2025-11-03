@@ -99,6 +99,20 @@
         .header-icons i:hover {
             color: var(--primary);
         }
+        .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--secondary);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
         
         .mobile-menu {
             display: none;
@@ -468,10 +482,13 @@
             </nav>
             
             <div class="header-icons">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-cart"></i>
-                <i class="fas fa-user"></i>
-            </div>
+                    <i class="fas fa-search"></i>
+                    <div class="cart-icon-container">
+                    <i class="fas fa-shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                    <i class="fas fa-user" id="user-icon"></i>
+                </div>
             
             <div class="mobile-menu" id="mobile-menu">
                 <i class="fas fa-bars"></i>
@@ -757,6 +774,26 @@
             } else {
                 alert('Por favor, completa todos los campos obligatorios.');
             }
+
+        // Cart functionality
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartIcon = document.getElementById('cart-icon');
+const cartCount = document.getElementById('cart-count');
+
+// Función para actualizar la interfaz del carrito
+function updateCartUI() {
+    // Actualizar contador del carrito
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCount.textContent = totalItems;
+}
+
+// Abrir página del carrito al hacer clic en el icono
+cartIcon.addEventListener('click', function() {
+    window.location.href = 'carrito.html';
+});
+
+// Inicializar carrito
+updateCartUI();
         });
     </script>
 </body>
