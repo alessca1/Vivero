@@ -88,12 +88,14 @@
         .header-icons {
             display: flex;
             gap: 20px;
+            position: relative;
         }
         
         .header-icons i {
             font-size: 1.3rem;
             cursor: pointer;
             transition: color 0.3s;
+            position: relative;
         }
         
         .header-icons i:hover {
@@ -105,7 +107,7 @@
             top: -8px;
             right: -8px;
             background-color: var(--secondary);
-            color: var(--white);
+            color: white;
             border-radius: 50%;
             width: 18px;
             height: 18px;
@@ -113,10 +115,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .cart-icon {
-            position: relative;
         }
         
         .mobile-menu {
@@ -541,22 +539,22 @@
             </div>
             
             <nav id="main-nav">
-    <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="plantas.html">Plantas</a></li>
-        <li><a href="jardineria.html">Jardinería</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
-    </ul>
-</nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="plantas.html">Plantas</a></li>
+                    <li><a href="jardineria.html">Jardinería</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
             
             <div class="header-icons">
                 <i class="fas fa-search"></i>
-                <div class="cart-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">3</span>
+                <div class="cart-icon-container">
+                    <i class="fas fa-shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count" id="cart-count">0</span>
                 </div>
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user" id="user-icon"></i>
             </div>
             
             <div class="mobile-menu" id="mobile-menu">
@@ -583,68 +581,12 @@
                 <!-- Cart Items -->
                 <div class="cart-items">
                     <div class="cart-header">
-                        <h2>Tu Carrito (3 productos)</h2>
-                        <a href="#" class="continue-shopping">Seguir Comprando</a>
+                        <h2 id="cart-title">Tu Carrito (0 productos)</h2>
+                        <a href="plantas.html" class="continue-shopping">Seguir Comprando</a>
                     </div>
                     
-                    <div class="cart-item">
-                        <div class="item-image">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <div class="item-details">
-                            <h3>Suculenta Echeveria</h3>
-                            <div class="item-category">Suculentas</div>
-                            <div class="item-price">$15.99</div>
-                        </div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn minus" data-id="1">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn plus" data-id="1">+</button>
-                        </div>
-                        <div class="item-total">$15.99</div>
-                        <button class="remove-btn" data-id="1">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="cart-item">
-                        <div class="item-image">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <div class="item-details">
-                            <h3>Monstera Deliciosa</h3>
-                            <div class="item-category">Plantas de Interior</div>
-                            <div class="item-price">$24.99</div>
-                        </div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn minus" data-id="2">-</button>
-                            <span class="quantity">2</span>
-                            <button class="quantity-btn plus" data-id="2">+</button>
-                        </div>
-                        <div class="item-total">$49.98</div>
-                        <button class="remove-btn" data-id="2">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="cart-item">
-                        <div class="item-image">
-                            <i class="fas fa-tree"></i>
-                        </div>
-                        <div class="item-details">
-                            <h3>Tijeras de Podar Profesionales</h3>
-                            <div class="item-category">Herramientas</div>
-                            <div class="item-price">$34.99</div>
-                        </div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn minus" data-id="3">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn plus" data-id="3">+</button>
-                        </div>
-                        <div class="item-total">$34.99</div>
-                        <button class="remove-btn" data-id="3">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                    <div id="cart-items-container">
+                        <!-- Los elementos del carrito se cargarán dinámicamente aquí -->
                     </div>
                 </div>
                 
@@ -656,32 +598,35 @@
                     
                     <div class="summary-details">
                         <div class="summary-row">
-                            <span>Subtotal (3 productos)</span>
-                            <span>$100.96</span>
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
                         </div>
                         <div class="summary-row">
                             <span>Envío</span>
-                            <span>$5.99</span>
+                            <span id="shipping">$5.99</span>
                         </div>
                         <div class="summary-row">
                             <span>Descuento</span>
-                            <span>-$0.00</span>
+                            <span id="discount">-$0.00</span>
                         </div>
                         <div class="summary-row summary-total">
                             <span>Total</span>
-                            <span>$106.95</span>
+                            <span id="total">$5.99</span>
                         </div>
                     </div>
                     
-                    <a href="#" class="checkout-btn">Proceder al Pago</a>
+                    <button class="checkout-btn" id="checkout-btn">Proceder al Pago</button>
                     <a href="plantas.html" class="continue-shopping">Continuar Comprando</a>
                     
                     <div class="promo-code">
                         <h3>Código de Descuento</h3>
                         <div class="promo-input">
-                            <input type="text" placeholder="Ingresa tu código">
-                            <button class="apply-btn">Aplicar</button>
+                            <input type="text" id="promo-code" placeholder="Ingresa tu código">
+                            <button class="apply-btn" id="apply-promo">Aplicar</button>
                         </div>
+                        <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 5px;">
+                            Prueba con: NATURALEZA10 para 10% de descuento
+                        </p>
                     </div>
                 </div>
             </div>
@@ -747,132 +692,211 @@
         });
         
         // Cart functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Quantity controls
-            const plusButtons = document.querySelectorAll('.quantity-btn.plus');
-            const minusButtons = document.querySelectorAll('.quantity-btn.minus');
-            const removeButtons = document.querySelectorAll('.remove-btn');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartIcon = document.getElementById('cart-icon');
+        const cartCount = document.getElementById('cart-count');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartTitle = document.getElementById('cart-title');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const applyPromoBtn = document.getElementById('apply-promo');
+        const promoCodeInput = document.getElementById('promo-code');
+        
+        // Elementos de resumen
+        const subtotalElement = document.getElementById('subtotal');
+        const shippingElement = document.getElementById('shipping');
+        const discountElement = document.getElementById('discount');
+        const totalElement = document.getElementById('total');
+        
+        let discountApplied = false;
+        let discountAmount = 0;
+        
+        // Función para renderizar el carrito
+        function renderCart() {
+            cartItemsContainer.innerHTML = '';
             
-            // Update item total
-            function updateItemTotal(item) {
-                const quantity = parseInt(item.querySelector('.quantity').textContent);
-                const price = parseFloat(item.querySelector('.item-price').textContent.replace('$', ''));
-                const totalElement = item.querySelector('.item-total');
-                
-                const total = (quantity * price).toFixed(2);
-                totalElement.textContent = `$${total}`;
-                
-                updateCartSummary();
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h2>Tu carrito está vacío</h2>
+                        <p>Parece que aún no has agregado productos a tu carrito.</p>
+                        <a href="plantas.html" class="checkout-btn">Explorar Productos</a>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+                checkoutBtn.style.opacity = '0.6';
+                cartTitle.textContent = 'Tu Carrito (0 productos)';
+                updateSummary();
+                updateCartCount();
+                return;
             }
             
-            // Update cart summary
-            function updateCartSummary() {
-                let subtotal = 0;
-                const items = document.querySelectorAll('.cart-item');
-                
-                items.forEach(item => {
-                    const itemTotal = parseFloat(item.querySelector('.item-total').textContent.replace('$', ''));
-                    subtotal += itemTotal;
-                });
-                
-                const shipping = 5.99;
-                const total = subtotal + shipping;
-                
-                document.querySelector('.summary-row:nth-child(1) span:last-child').textContent = `$${subtotal.toFixed(2)}`;
-                document.querySelector('.summary-row:nth-child(4) span:last-child').textContent = `$${total.toFixed(2)}`;
-                
-                // Update cart count
-                const itemCount = items.length;
-                document.querySelector('.cart-count').textContent = itemCount;
-                document.querySelector('.cart-header h2').textContent = `Tu Carrito (${itemCount} producto${itemCount !== 1 ? 's' : ''})`;
-            }
+            checkoutBtn.disabled = false;
+            checkoutBtn.style.opacity = '1';
             
-            // Plus button event
-            plusButtons.forEach(button => {
+            let totalItems = 0;
+            
+            cart.forEach(item => {
+                totalItems += item.quantity;
+                const itemTotal = item.price * item.quantity;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="item-image">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <div class="item-category">${getCategory(item.id)}</div>
+                        <div class="item-price">$${item.price.toFixed(2)}</div>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                    </div>
+                    <div class="item-total">$${itemTotal.toFixed(2)}</div>
+                    <button class="remove-btn" data-id="${item.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            cartTitle.textContent = `Tu Carrito (${totalItems} producto${totalItems !== 1 ? 's' : ''})`;
+            
+            // Agregar event listeners
+            document.querySelectorAll('.quantity-btn.plus').forEach(button => {
                 button.addEventListener('click', function() {
-                    const item = this.closest('.cart-item');
-                    const quantityElement = item.querySelector('.quantity');
-                    let quantity = parseInt(quantityElement.textContent);
-                    quantity++;
-                    quantityElement.textContent = quantity;
-                    updateItemTotal(item);
+                    const id = this.getAttribute('data-id');
+                    updateQuantity(id, 1);
                 });
             });
             
-            // Minus button event
-            minusButtons.forEach(button => {
+            document.querySelectorAll('.quantity-btn.minus').forEach(button => {
                 button.addEventListener('click', function() {
-                    const item = this.closest('.cart-item');
-                    const quantityElement = item.querySelector('.quantity');
-                    let quantity = parseInt(quantityElement.textContent);
-                    
-                    if (quantity > 1) {
-                        quantity--;
-                        quantityElement.textContent = quantity;
-                        updateItemTotal(item);
-                    }
+                    const id = this.getAttribute('data-id');
+                    updateQuantity(id, -1);
                 });
             });
             
-            // Remove button event
-            removeButtons.forEach(button => {
+            document.querySelectorAll('.remove-btn').forEach(button => {
                 button.addEventListener('click', function() {
-                    const item = this.closest('.cart-item');
-                    item.remove();
-                    updateCartSummary();
-                    
-                    // Show empty cart message if no items
-                    if (document.querySelectorAll('.cart-item').length === 0) {
-                        document.querySelector('.cart-items').innerHTML = `
-                            <div class="empty-cart">
-                                <div class="empty-cart-icon">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                                <h2>Tu carrito está vacío</h2>
-                                <p>Parece que aún no has agregado productos a tu carrito.</p>
-                                <a href="plantas.html" class="checkout-btn">Explorar Productos</a>
-                            </div>
-                        `;
-                    }
+                    const id = this.getAttribute('data-id');
+                    removeFromCart(id);
                 });
             });
             
-            // Promo code application
-            const applyButton = document.querySelector('.apply-btn');
-            applyButton.addEventListener('click', function() {
-                const promoInput = document.querySelector('.promo-input input');
-                const promoCode = promoInput.value.trim();
+            updateSummary();
+            updateCartCount();
+        }
+        
+        // Función para obtener categoría del producto
+        function getCategory(id) {
+            const plantIds = [1, 2, 3, 4, 5, 6, 7, 8];
+            const toolIds = [9, 10, 11, 12];
+            const accessoryIds = [13, 14, 15, 16];
+            
+            if (plantIds.includes(parseInt(id))) return 'Plantas';
+            if (toolIds.includes(parseInt(id))) return 'Herramientas';
+            if (accessoryIds.includes(parseInt(id))) return 'Accesorios';
+            return 'Producto';
+        }
+        
+        // Función para actualizar cantidad
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                item.quantity += change;
                 
-                if (promoCode === 'NATURALEZA10') {
-                    alert('¡Código aplicado! Se ha aplicado un 10% de descuento.');
-                    // Apply discount logic would go here
-                    promoInput.value = '';
-                } else if (promoCode) {
-                    alert('Código no válido. Intenta con "NATURALEZA10" para un 10% de descuento.');
-                } else {
-                    alert('Por favor, ingresa un código de descuento.');
+                if (item.quantity < 1) {
+                    item.quantity = 1;
                 }
-            });
+                
+                saveCart();
+                renderCart();
+            }
+        }
+        
+        // Función para eliminar producto
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            renderCart();
+        }
+        
+        // Función para actualizar resumen
+        function updateSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = subtotal > 0 ? 5.99 : 0;
+            
+            // Aplicar descuento si está activo
+            let discount = 0;
+            if (discountApplied && subtotal > 0) {
+                discount = subtotal * discountAmount;
+            }
+            
+            const total = Math.max(0, subtotal + shipping - discount);
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            shippingElement.textContent = subtotal > 0 ? `$${shipping.toFixed(2)}` : '$0.00';
+            discountElement.textContent = discount > 0 ? `-$${discount.toFixed(2)}` : '$0.00';
+            totalElement.textContent = `$${total.toFixed(2)}`;
+        }
+        
+        // Función para actualizar contador
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Función para guardar carrito
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // Aplicar código promocional
+        applyPromoBtn.addEventListener('click', function() {
+            const code = promoCodeInput.value.trim().toUpperCase();
+            
+            if (code === 'NATURALEZA10') {
+                discountApplied = true;
+                discountAmount = 0.10; // 10% de descuento
+                alert('¡Código aplicado! Se ha aplicado un 10% de descuento.');
+                updateSummary();
+                promoCodeInput.value = '';
+            } else if (code) {
+                alert('Código no válido. Intenta con "NATURALEZA10" para un 10% de descuento.');
+            } else {
+                alert('Por favor, ingresa un código de descuento.');
+            }
         });
-    // Cart functionality
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const cartIcon = document.getElementById('cart-icon');
-const cartCount = document.getElementById('cart-count');
-
-// Función para actualizar la interfaz del carrito
-function updateCartUI() {
-    // Actualizar contador del carrito
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    cartCount.textContent = totalItems;
-}
-
-// Abrir página del carrito al hacer clic en el icono
-cartIcon.addEventListener('click', function() {
-    window.location.href = 'carrito.html';
-});
-
-// Inicializar carrito
-updateCartUI();
+        
+        // Proceder al pago
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            
+            const total = parseFloat(totalElement.textContent.replace('$', ''));
+            alert(`¡Gracias por tu compra! Total: $${total.toFixed(2)}\nSerás redirigido al proceso de pago.`);
+            
+            // Limpiar carrito después de la compra
+            cart = [];
+            discountApplied = false;
+            discountAmount = 0;
+            saveCart();
+            renderCart();
+        });
+        
+        // Inicializar carrito
+        renderCart();
     </script>
 </body>
 </html>

@@ -88,16 +88,33 @@
         .header-icons {
             display: flex;
             gap: 20px;
+            position: relative;
         }
         
         .header-icons i {
             font-size: 1.3rem;
             cursor: pointer;
             transition: color 0.3s;
+            position: relative;
         }
         
         .header-icons i:hover {
             color: var(--primary);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .mobile-menu {
@@ -603,24 +620,24 @@
             </div>
             
             <nav id="main-nav">
-    <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="plantas.html">Plantas</a></li>
-        <li><a href="jardineria.html">Jardinería</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
-    </ul>
-</nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="plantas.html">Plantas</a></li>
+                    <li><a href="jardineria.html">Jardinería</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="sobre-nosotros.html" class="active">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
             
             <div class="header-icons">
                 <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-cart"></i>
-                <i class="fas fa-user"></i>
+                <div class="cart-icon-container">
+                    <i class="fas fa-shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                <i class="fas fa-user" id="user-icon"></i>
             </div>
-            <div id="search-box" style="display:none; margin-top:10px;">
-        <input type="text" id="search-input" placeholder="Buscar..." style="padding:8px; border-radius:5px; border:1px solid #ccc;">
-        <button id="search-btn" class="btn" style="padding:8px 15px; margin-left:5px;">Buscar</button>
-    </div>
+            
             <div class="mobile-menu" id="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
@@ -890,59 +907,26 @@
         document.getElementById('mobile-menu').addEventListener('click', function() {
             document.getElementById('main-nav').classList.toggle('active');
         });
-        document.querySelector('.fa-search').addEventListener('click', function() {
-        const searchBox = document.getElementById('search-box');
-        searchBox.style.display = searchBox.style.display === 'none' ? 'block' : 'none';
-        document.getElementById('search-input').focus();
-    });
+        
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartIcon = document.getElementById('cart-icon');
+        const cartCount = document.getElementById('cart-count');
 
-    // Búsqueda simple funcional
-    document.getElementById('search-btn').addEventListener('click', function() {
-        const query = document.getElementById('search-input').value.trim().toLowerCase();
-        if (!query) {
-            alert('Ingresa un término para buscar.');
-            return;
+        // Función para actualizar la interfaz del carrito
+        function updateCartUI() {
+            // Actualizar contador del carrito
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
         }
-        // Ejemplo básico: buscar en los títulos de las secciones
-        let found = false;
-        document.querySelectorAll('h1, h2, h3').forEach(el => {
-            if (el.textContent.toLowerCase().includes(query)) {
-                el.scrollIntoView({behavior: 'smooth', block: 'center'});
-                el.style.background = '#ffe082';
-                setTimeout(() => el.style.background = '', 1500);
-                found = true;
-            }
+        
+        // Abrir página del carrito al hacer clic en el icono
+        cartIcon.addEventListener('click', function() {
+            window.location.href = 'carrito.html';
         });
-        if (!found) {
-            alert('No se encontraron resultados para "' + query + '".');
-        }
-    });
 
-    // Permitir Enter en el input
-    document.getElementById('search-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            document.getElementById('search-btn').click();
-        }
-    });
-    // Cart functionality
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const cartIcon = document.getElementById('cart-icon');
-const cartCount = document.getElementById('cart-count');
-
-// Función para actualizar la interfaz del carrito
-function updateCartUI() {
-    // Actualizar contador del carrito
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    cartCount.textContent = totalItems;
-}
-
-// Abrir página del carrito al hacer clic en el icono
-cartIcon.addEventListener('click', function() {
-    window.location.href = 'carrito.html';
-});
-
-// Inicializar carrito
-updateCartUI();
+        // Inicializar carrito
+        updateCartUI();
     </script>
 </body>
 </html>

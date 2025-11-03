@@ -81,23 +81,40 @@
             transition: color 0.3s;
         }
         
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: var(--primary);
         }
         
         .header-icons {
             display: flex;
             gap: 20px;
+            position: relative;
         }
         
         .header-icons i {
             font-size: 1.3rem;
             cursor: pointer;
             transition: color 0.3s;
+            position: relative;
         }
         
         .header-icons i:hover {
             color: var(--primary);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .mobile-menu {
@@ -428,19 +445,22 @@
             </div>
             
             <nav id="main-nav">
-    <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="plantas.html">Plantas</a></li>
-        <li><a href="jardineria.html">Jardinería</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
-    </ul>
-</nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="plantas.html" class="active">Plantas</a></li>
+                    <li><a href="jardineria.html">Jardinería</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
             
             <div class="header-icons">
                 <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-cart"></i>
-                <i class="fas fa-user"></i>
+                <div class="cart-icon-container">
+                    <i class="fas fa-shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                <i class="fas fa-user" id="user-icon"></i>
             </div>
             
             <div class="mobile-menu" id="mobile-menu">
@@ -547,7 +567,7 @@
                     </div>
                     <div class="plant-price">$15.99</div>
                     <div class="plant-actions">
-                        <button class="add-to-cart" data-id="1" data-name="Nombre Producto" data-price="15.99">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="1" data-name="Suculenta Echeveria" data-price="15.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -575,7 +595,7 @@
                     </div>
                     <div class="plant-price">$24.99</div>
                     <div class="plant-actions">
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="2" data-name="Monstera Deliciosa" data-price="24.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -602,7 +622,7 @@
                     </div>
                     <div class="plant-price">$12.99</div>
                     <div class="plant-actions">
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="3" data-name="Lavanda" data-price="12.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -629,7 +649,7 @@
                     </div>
                     <div class="plant-price">$18.99</div>
                     <div class="plant-actions">
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="4" data-name="Helecho Boston" data-price="18.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -657,7 +677,7 @@
                     </div>
                     <div class="plant-price">$32.99 <span style="text-decoration: line-through; color: var(--text-light); font-size: 1rem;">$39.99</span></div>
                     <div class="plant-actions">
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="5" data-name="Ficus Lyrata" data-price="32.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -684,7 +704,7 @@
                     </div>
                     <div class="plant-price">$14.99</div>
                     <div class="plant-actions">
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="6" data-name="Pothos Dorado" data-price="14.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -711,7 +731,7 @@
                     </div>
                     <div class="plant-price">$22.99</div>
                     <div class="plant-actions">
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="7" data-name="Cactus San Pedro" data-price="22.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -739,7 +759,7 @@
                     </div>
                     <div class="plant-price">$26.99</div>
                     <div class="plant-actions">
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                        <button class="add-to-cart" data-id="8" data-name="Calathea Medallón" data-price="26.99">Agregar al Carrito</button>
                         <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
@@ -776,9 +796,9 @@
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="plantas.html">Plantas</a></li>
-                        <li><a href="#">Jardinería</a></li>
-                        <li><a href="#">Ofertas</a></li>
-                        <li><a href="#">Contacto</a></li>
+                        <li><a href="jardineria.html">Jardinería</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
                     </ul>
                 </div>
                 
@@ -818,31 +838,7 @@
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartIcon = document.getElementById('cart-icon');
         const cartCount = document.getElementById('cart-count');
-        const cartModal = document.getElementById('cart-modal');
-        const cartItems = document.getElementById('cart-items');
-        const cartTotalPrice = document.getElementById('cart-total-price');
-        const continueShoppingBtn = document.getElementById('continue-shopping');
-        const goToCartBtn = document.getElementById('go-to-cart');
-        
-        // User functionality
-        const userIcon = document.getElementById('user-icon');
-        const userModal = document.getElementById('user-modal');
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const userInfo = document.getElementById('user-info');
-        const showRegisterBtn = document.getElementById('show-register');
-        const showLoginBtn = document.getElementById('show-login');
-        const loginBtn = document.getElementById('login-btn');
-        const registerBtn = document.getElementById('register-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const editProfileBtn = document.getElementById('edit-profile');
-        const userModalTitle = document.getElementById('user-modal-title');
-        const displayName = document.getElementById('display-name');
-        const displayEmail = document.getElementById('display-email');
-        
-        // Close modal buttons
-        const closeModalButtons = document.querySelectorAll('.close-modal');
-        
+
         // Add to cart functionality
         const addToCartButtons = document.querySelectorAll('.add-to-cart');
         addToCartButtons.forEach(button => {
@@ -881,112 +877,6 @@
             // Actualizar contador del carrito
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             cartCount.textContent = totalItems;
-            
-            // Actualizar elementos del carrito en el modal
-            cartItems.innerHTML = '';
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Tu carrito está vacío</p>';
-                cartTotalPrice.textContent = '$0.00';
-                goToCartBtn.style.display = 'none';
-                return;
-            }
-            
-            let totalPrice = 0;
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                totalPrice += itemTotal;
-                
-                const cartItemElement = document.createElement('div');
-                cartItemElement.className = 'cart-item';
-                cartItemElement.innerHTML = `
-                    <div class="cart-item-image">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <div class="cart-item-details">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                        <div class="cart-item-quantity">
-                            <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
-                            <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
-                            <button class="remove-item" data-id="${item.id}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                cartItems.appendChild(cartItemElement);
-            });
-            
-            // Actualizar precio total
-            cartTotalPrice.textContent = `$${totalPrice.toFixed(2)}`;
-            goToCartBtn.style.display = 'block';
-            
-            // Agregar event listeners a los botones de cantidad y eliminar
-            document.querySelectorAll('.decrease-quantity').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    updateQuantity(id, -1);
-                });
-            });
-            
-            document.querySelectorAll('.increase-quantity').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    updateQuantity(id, 1);
-                });
-            });
-            
-            document.querySelectorAll('.quantity-input').forEach(input => {
-                input.addEventListener('change', function() {
-                    const id = this.getAttribute('data-id');
-                    const newQuantity = parseInt(this.value);
-                    
-                    if (newQuantity < 1) {
-                        this.value = 1;
-                        updateQuantity(id, 0, 1);
-                    } else {
-                        updateQuantity(id, 0, newQuantity);
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.remove-item').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    removeFromCart(id);
-                });
-            });
-        }
-        
-        // Función para actualizar cantidad de un producto
-        function updateQuantity(id, change, setQuantity = null) {
-            const item = cart.find(item => item.id === id);
-            
-            if (item) {
-                if (setQuantity !== null) {
-                    item.quantity = setQuantity;
-                } else {
-                    item.quantity += change;
-                    
-                    if (item.quantity < 1) {
-                        item.quantity = 1;
-                    }
-                }
-                
-                updateCartUI();
-                saveCartToLocalStorage();
-            }
-        }
-        
-        // Función para eliminar producto del carrito
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-            saveCartToLocalStorage();
         }
         
         // Función para guardar carrito en localStorage
@@ -994,150 +884,30 @@
             localStorage.setItem('cart', JSON.stringify(cart));
         }
         
-        // Abrir modal del carrito
+        // Abrir página del carrito al hacer clic en el icono
         cartIcon.addEventListener('click', function() {
-            cartModal.style.display = 'flex';
-        });
-        
-        // Cerrar modal del carrito y continuar comprando
-        continueShoppingBtn.addEventListener('click', function() {
-            cartModal.style.display = 'none';
-        });
-        
-        // Ir a la página del carrito completo
-        goToCartBtn.addEventListener('click', function() {
             window.location.href = 'carrito.html';
         });
         
-        // User functionality
-        let currentUser = null;
-        
-        // Abrir modal de usuario
-        userIcon.addEventListener('click', function() {
-            if (currentUser) {
-                showUserInfo();
-            } else {
-                showLoginForm();
-            }
-            userModal.style.display = 'flex';
-        });
-        
-        // Mostrar formulario de registro
-        showRegisterBtn.addEventListener('click', function() {
-            loginForm.style.display = 'none';
-            registerForm.style.display = 'flex';
-            userModalTitle.textContent = 'Crear Cuenta';
-        });
-        
-        // Mostrar formulario de inicio de sesión
-        showLoginBtn.addEventListener('click', function() {
-            registerForm.style.display = 'none';
-            loginForm.style.display = 'flex';
-            userModalTitle.textContent = 'Iniciar Sesión';
-        });
-        
-        // Iniciar sesión
-        loginBtn.addEventListener('click', function() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            
-            if (!email || !password) {
-                alert('Por favor, completa todos los campos');
-                return;
-            }
-            
-            // Simulación de inicio de sesión
-            currentUser = {
-                name: 'Usuario Ejemplo',
-                email: email
-            };
-            
-            showUserInfo();
-            userModal.style.display = 'flex';
-            
-            // Limpiar formularios
-            document.getElementById('login-email').value = '';
-            document.getElementById('login-password').value = '';
-        });
-        
-        // Registrarse
-        registerBtn.addEventListener('click', function() {
-            const name = document.getElementById('register-name').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            
-            if (!name || !email || !password) {
-                alert('Por favor, completa todos los campos');
-                return;
-            }
-            
-            // Simulación de registro
-            currentUser = {
-                name: name,
-                email: email
-            };
-            
-            showUserInfo();
-            userModal.style.display = 'flex';
-            
-            // Limpiar formularios
-            document.getElementById('register-name').value = '';
-            document.getElementById('register-email').value = '';
-            document.getElementById('register-password').value = '';
-            
-            alert('¡Cuenta creada exitosamente!');
-        });
-        
-        // Cerrar sesión
-        logoutBtn.addEventListener('click', function() {
-            currentUser = null;
-            showLoginForm();
-            userModal.style.display = 'flex';
-        });
-        
-        // Editar perfil
-        editProfileBtn.addEventListener('click', function() {
-            // En una implementación real, esto abriría un formulario de edición
-            alert('Funcionalidad de edición de perfil en desarrollo');
-        });
-        
-        // Mostrar información del usuario
-        function showUserInfo() {
-            loginForm.style.display = 'none';
-            registerForm.style.display = 'none';
-            userInfo.style.display = 'block';
-            userModalTitle.textContent = 'Mi Cuenta';
-            
-            displayName.textContent = currentUser.name;
-            displayEmail.textContent = currentUser.email;
-        }
-        
-        // Mostrar formulario de inicio de sesión
-        function showLoginForm() {
-            userInfo.style.display = 'none';
-            registerForm.style.display = 'none';
-            loginForm.style.display = 'flex';
-            userModalTitle.textContent = 'Iniciar Sesión';
-        }
-        
-        // Cerrar modales
-        closeModalButtons.forEach(button => {
+        // Wishlist functionality
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+        wishlistButtons.forEach(button => {
             button.addEventListener('click', function() {
-                cartModal.style.display = 'none';
-                userModal.style.display = 'none';
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.backgroundColor = 'var(--primary)';
+                    this.style.color = 'var(--white)';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = 'var(--primary)';
+                }
             });
         });
-        
-        // Cerrar modales al hacer clic fuera
-        window.addEventListener('click', function(event) {
-            if (event.target === cartModal) {
-                cartModal.style.display = 'none';
-            }
-            if (event.target === userModal) {
-                userModal.style.display = 'none';
-            }
-        });
-        
+
         // Inicializar carrito
         updateCartUI();
     </script>
