@@ -235,12 +235,23 @@
         
         .tool-image {
             height: 200px;
-            background-color: var(--accent);
+            background-color: #f8f9fa;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            overflow: hidden;
             position: relative;
+        }
+        
+        .tool-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-image img {
+            transform: scale(1.05);
         }
         
         .tool-badge {
@@ -343,11 +354,22 @@
         
         .accessory-image {
             height: 180px;
-            background-color: var(--accent);
+            background-color: #f8f9fa;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
+            overflow: hidden;
+        }
+        
+        .accessory-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .accessory-card:hover .accessory-image img {
+            transform: scale(1.05);
         }
         
         .accessory-info {
@@ -639,7 +661,7 @@
                 <!-- Tool 1 -->
                 <div class="tool-card">
                     <div class="tool-image">
-                        <i class="fas fa-tree"></i>
+                        <img src="img/4.jpg" alt="Tijeras de Podar Profesionales">
                         <span class="tool-badge">Nuevo</span>
                     </div>
                     <div class="tool-info">
@@ -657,7 +679,7 @@
                 <!-- Tool 2 -->
                 <div class="tool-card">
                     <div class="tool-image">
-                        <i class="fas fa-shovel"></i>
+                        <img src="img/5.jpg" alt="Palas de Jardinería">
                     </div>
                     <div class="tool-info">
                         <h3>Palas de Jardinería</h3>
@@ -674,7 +696,7 @@
                 <!-- Tool 3 -->
                 <div class="tool-card">
                     <div class="tool-image">
-                        <i class="fas fa-tint"></i>
+                        <img src="img/6.jpg" alt="Manguera Flexible">
                         <span class="tool-badge">Oferta</span>
                     </div>
                     <div class="tool-info">
@@ -684,23 +706,6 @@
                         <div class="tool-price">$28.99 <span style="text-decoration: line-through; color: var(--text-light); font-size: 1rem;">$35.99</span></div>
                         <div class="tool-actions">
                             <button class="add-to-cart" data-id="11" data-name="Manguera Flexible 15m" data-price="28.99">Agregar al Carrito</button>
-                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Tool 4 -->
-                <div class="tool-card">
-                    <div class="tool-image">
-                        <i class="fas fa-spray-can"></i>
-                    </div>
-                    <div class="tool-info">
-                        <h3>Pulverizador de Presión</h3>
-                        <div class="tool-category">Aplicación</div>
-                        <p class="tool-description">Pulverizador de 2 litros para aplicación de fertilizantes y pesticidas.</p>
-                        <div class="tool-price">$18.99</div>
-                        <div class="tool-actions">
-                            <button class="add-to-cart" data-id="12" data-name="Pulverizador de Presión" data-price="18.99">Agregar al Carrito</button>
                             <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                         </div>
                     </div>
@@ -717,7 +722,7 @@
                 <!-- Accessory 1 -->
                 <div class="accessory-card">
                     <div class="accessory-image">
-                        <i class="fas fa-egg"></i>
+                        <img src="img/7.jpg" alt="Maceta de Cerámica">
                     </div>
                     <div class="accessory-info">
                         <h3>Maceta de Cerámica</h3>
@@ -730,7 +735,7 @@
                 <!-- Accessory 2 -->
                 <div class="accessory-card">
                     <div class="accessory-image">
-                        <i class="fas fa-cube"></i>
+                        <img src="img/8.jpg" alt="Macetero Colgante">
                     </div>
                     <div class="accessory-info">
                         <h3>Macetero Colgante</h3>
@@ -743,7 +748,7 @@
                 <!-- Accessory 3 -->
                 <div class="accessory-card">
                     <div class="accessory-image">
-                        <i class="fas fa-border-all"></i>
+                        <img src="img/9.jpg" alt="Sustrato Premium">
                     </div>
                     <div class="accessory-info">
                         <h3>Sustrato Premium</h3>
@@ -756,7 +761,7 @@
                 <!-- Accessory 4 -->
                 <div class="accessory-card">
                     <div class="accessory-image">
-                        <i class="fas fa-vial"></i>
+                        <img src="img/10.jpg" alt="Fertilizante Orgánico">
                     </div>
                     <div class="accessory-info">
                         <h3>Fertilizante Orgánico</h3>
@@ -920,7 +925,7 @@
             window.location.href = 'carrito.html';
         });
         
-        // Wishlist functionality
+         // Wishlist functionality
         const wishlistButtons = document.querySelectorAll('.wishlist-btn');
         wishlistButtons.forEach(button => {
             button.addEventListener('click', function() {
