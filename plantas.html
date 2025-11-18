@@ -216,26 +216,38 @@
         }
         
         .plant-image {
-            height: 200px;
-            background-color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            position: relative;
-        }
-        
-        .plant-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--secondary);
-            color: var(--white);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
+    height: 250px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.plant-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.plant-card:hover .plant-image img {
+    transform: scale(1.05);
+}
+
+.plant-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 2;
+}
         
         .plant-info {
             padding: 20px;
@@ -535,10 +547,7 @@
                 </div>
             </div>
             
-            <div class="filter-actions">
-                <button class="btn" style="background-color: var(--primary-light);">Aplicar Filtros</button>
-                <button class="btn btn-secondary">Limpiar Filtros</button>
-            </div>
+            
         </div>
     </section>
 
@@ -548,7 +557,7 @@
             <!-- Plant 1 -->
             <div class="plant-card">
                 <div class="plant-image">
-                    <i class="fas fa-spa"></i>
+                    <img src="img/1.jpg" alt="">
                     <span class="plant-badge">Nuevo</span>
                 </div>
                 <div class="plant-info">
@@ -576,7 +585,7 @@
             <!-- Plant 2 -->
             <div class="plant-card">
                 <div class="plant-image">
-                    <i class="fas fa-leaf"></i>
+                    <img src="img/2.jpg" alt="">
                     <span class="plant-badge">Popular</span>
                 </div>
                 <div class="plant-info">
@@ -604,7 +613,7 @@
             <!-- Plant 3 -->
             <div class="plant-card">
                 <div class="plant-image">
-                    <i class="fab fa-pagelines"></i>
+                    <img src="img/3.jpg" alt="">
                 </div>
                 <div class="plant-info">
                     <h3>Lavanda</h3>
@@ -631,7 +640,7 @@
             <!-- Plant 4 -->
             <div class="plant-card">
                 <div class="plant-image">
-                    <i class="fas fa-feather-alt"></i>
+                    <img src="img/IMG-20251117-WA0001.jpg" alt="">
                 </div>
                 <div class="plant-info">
                     <h3>Helecho Boston</h3>
@@ -658,7 +667,7 @@
             <!-- Plant 5 -->
             <div class="plant-card">
                 <div class="plant-image">
-                    <i class="fas fa-tree"></i>
+                    <img src="img/IMG-20251117-WA0003.jpg" alt="">
                     <span class="plant-badge">Oferta</span>
                 </div>
                 <div class="plant-info">
@@ -686,7 +695,7 @@
             <!-- Plant 6 -->
             <div class="plant-card">
                 <div class="plant-image">
-                    <i class="fas fa-seedling"></i>
+                    <img src="img/IMG-20251117-WA0004.jpg" alt="">
                 </div>
                 <div class="plant-info">
                     <h3>Pothos Dorado</h3>
@@ -710,62 +719,7 @@
                 </div>
             </div>
             
-            <!-- Plant 7 -->
-            <div class="plant-card">
-                <div class="plant-image">
-                    <i class="fas fa-cactus"></i>
-                </div>
-                <div class="plant-info">
-                    <h3>Cactus San Pedro</h3>
-                    <div class="plant-category">Cactus</div>
-                    <p class="plant-description">Cactus columnar de crecimiento rápido, ideal para jardines de suculentas.</p>
-                    <div class="plant-care">
-                        <div class="care-item">
-                            <i class="fas fa-sun"></i>
-                            <span>Luz directa</span>
-                        </div>
-                        <div class="care-item">
-                            <i class="fas fa-tint"></i>
-                            <span>Muy poco agua</span>
-                        </div>
-                    </div>
-                    <div class="plant-price">$22.99</div>
-                    <div class="plant-actions">
-                        <button class="add-to-cart" data-id="7" data-name="Cactus San Pedro" data-price="22.99">Agregar al Carrito</button>
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
             
-            <!-- Plant 8 -->
-            <div class="plant-card">
-                <div class="plant-image">
-                    <i class="fas fa-pagelines"></i>
-                    <span class="plant-badge">Nuevo</span>
-                </div>
-                <div class="plant-info">
-                    <h3>Calathea Medallón</h3>
-                    <div class="plant-category">Plantas de Interior</div>
-                    <p class="plant-description">Planta con hermosos patrones en sus hojas que se mueven según la luz.</p>
-                    <div class="plant-care">
-                        <div class="care-item">
-                            <i class="fas fa-sun"></i>
-                            <span>Sombra parcial</span>
-                        </div>
-                        <div class="care-item">
-                            <i class="fas fa-tint"></i>
-                            <span>Alta humedad</span>
-                        </div>
-                    </div>
-                    <div class="plant-price">$26.99</div>
-                    <div class="plant-actions">
-                        <button class="add-to-cart" data-id="8" data-name="Calathea Medallón" data-price="26.99">Agregar al Carrito</button>
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <!-- Pagination -->
         <div class="pagination">
             <a href="#" class="active">1</a>
